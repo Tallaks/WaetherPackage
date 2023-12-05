@@ -33,7 +33,8 @@ namespace WeatherSystem
         }
         catch (Exception e)
         {
-          Debug.LogWarning("Exception occurred while getting weather info from service " + service.GetType().Name);
+          Debug.LogWarning(
+            $"Exception occurred while getting weather info from service {service.GetType().Name}\n{e.Message}");
           continue;
         }
 

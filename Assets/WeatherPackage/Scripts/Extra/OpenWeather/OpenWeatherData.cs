@@ -3,19 +3,19 @@ using System;
 namespace WeatherSystem.Extra.OpenWeather
 {
   [Serializable]
-  internal struct WeatherData
+  internal struct OpenWeatherData
   {
     public Coord Coord { get; set; }
-    public WeatherInfo[] Weather { get; set; }
+    public OpenWeatherInfo[] Weather { get; set; }
     public Main Main { get; set; }
     public int Visibility { get; set; }
     public Wind Wind { get; set; }
     public Clouds Clouds { get; set; }
     public int Dt { get; set; }
 
-    public WeatherSystem.WeatherInfo ToWeather()
+    public WeatherInfo ToWeather()
     {
-      return new WeatherSystem.WeatherInfo
+      return new WeatherInfo
       {
         Temperature = Main.Temp,
         Pressure = Main.Pressure,
@@ -35,7 +35,7 @@ namespace WeatherSystem.Extra.OpenWeather
   }
 
   [Serializable]
-  internal struct WeatherInfo
+  internal struct OpenWeatherInfo
   {
     public int Id { get; set; }
     public string Main { get; set; }

@@ -18,6 +18,8 @@ namespace WeatherSystem
     public override string ToString()
     {
       var stringBuilder = new StringBuilder();
+      if (_weatherInfoByServiceType.Count == 0)
+        return "Empty weather";
       foreach (IWeatherService service in _weatherInfoByServiceType.Keys)
       {
         stringBuilder.Append(service.GetType().Name);

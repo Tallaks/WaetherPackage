@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 
-namespace WeatherSystem.Services.OpenWeather
+namespace WeatherSystem.Extras.Services.OpenWeather
 {
-  internal class OpenWeatherService : IWeatherService
+  public class OpenWeatherService : IWeatherService
   {
     private const string ApiKey = "bdac50fa2e57d62e828edce565c66e81";
 

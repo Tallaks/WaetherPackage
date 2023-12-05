@@ -1,6 +1,6 @@
 using System;
 
-namespace WeatherSystem.Services.OpenWeather
+namespace WeatherSystem.Extras.Services.OpenWeather
 {
   [Serializable]
   internal struct OpenWeatherData
@@ -17,6 +17,8 @@ namespace WeatherSystem.Services.OpenWeather
     {
       return new WeatherInfo
       {
+        Longitude = Coord.Lon,
+        Latitude = Coord.Lat,
         Temperature = Main.Temp,
         Pressure = Main.Pressure,
         WindSpeed = Wind.Speed,

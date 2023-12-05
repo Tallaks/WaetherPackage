@@ -5,12 +5,12 @@ namespace WeatherSystem
 {
   public class WeatherInfo
   {
-    public double Latitude { get; }
-    public double Longitude { get; }
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
     public float Temperature { get; set; }
-    public int Pressure { get; set; }
+    public float Pressure { get; set; }
     public float WindSpeed { get; set; }
-    public int WindDirection { get; set; }
+    public float WindDirection { get; set; }
     public int Cloudiness { get; set; }
     public string Description { get; set; }
 

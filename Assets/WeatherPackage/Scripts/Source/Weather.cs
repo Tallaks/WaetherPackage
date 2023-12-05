@@ -5,12 +5,12 @@ namespace WeatherSystem
 {
   public class Weather
   {
-    private readonly Dictionary<IWeatherService, WeatherInfo> _weatherInfoByServiceType = new();
+    private readonly Dictionary<string, WeatherInfo> _weatherInfoByServiceType = new();
     public static Weather Empty => new();
 
-    public WeatherInfo GetWeatherInfoFrom(IWeatherService weatherService)
+    public WeatherInfo GetWeatherInfoFrom(string weatherServiceName)
     {
-      if (_weatherInfoByServiceType.TryGetValue(weatherService, out WeatherInfo weatherInfo))
+      if (_weatherInfoByServiceType.TryGetValue(weatherServiceName, out WeatherInfo weatherInfo))
         return weatherInfo;
       return null;
     }
@@ -20,11 +20,11 @@ namespace WeatherSystem
       var stringBuilder = new StringBuilder();
       if (_weatherInfoByServiceType.Count == 0)
         return "Empty weather";
-      foreach (IWeatherService service in _weatherInfoByServiceType.Keys)
+      foreach (string serviceName in _weatherInfoByServiceType.Keys)
       {
-        stringBuilder.Append(service.GetType().Name);
+        stringBuilder.Append(serviceName);
         stringBuilder.AppendLine(":");
-        stringBuilder.Append(_weatherInfoByServiceType[service]);
+        stringBuilder.Append(_weatherInfoByServiceType[serviceName]);
         stringBuilder.AppendLine();
       }
 
@@ -33,7 +33,7 @@ namespace WeatherSystem
 
     internal void AddWeatherInfo(IWeatherService service, WeatherInfo weatherInfo)
     {
-      _weatherInfoByServiceType.Add(service, weatherInfo);
+      _weatherInfoByServiceType.Add(service.GetType().Name, weatherInfo);
     }
   }
 }

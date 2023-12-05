@@ -1,6 +1,6 @@
 using System;
 
-namespace WeatherSystem.Extra.OpenWeather
+namespace WeatherSystem.Services.OpenWeather
 {
   [Serializable]
   internal struct OpenWeatherData

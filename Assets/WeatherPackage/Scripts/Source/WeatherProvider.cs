@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using WeatherSystem.Services.OpenWeather;
 
 namespace WeatherSystem
 {
   public class WeatherProvider : IWeatherProvider
   {
     private readonly HashSet<IWeatherService> _services = new();
+
+    public WeatherProvider() =>
+      _services.Add(new OpenWeatherService());
 
     public void AddWeatherService(IWeatherService service)
     {

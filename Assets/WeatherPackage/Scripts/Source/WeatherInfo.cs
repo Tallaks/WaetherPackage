@@ -7,7 +7,7 @@ namespace WeatherSystem
   {
     public double Latitude { get; set; }
     public double Longitude { get; set; }
-    public float Temperature { get; set; }
+    public Temperature Temperature { get; set; }
     public float Pressure { get; set; }
     public float WindSpeed { get; set; }
     public float WindDirection { get; set; }
@@ -24,7 +24,7 @@ namespace WeatherSystem
       stringBuilder.Append("-- Longitude: ");
       stringBuilder.AppendLine(Longitude.ToString(CultureInfo.InvariantCulture));
       stringBuilder.Append("-- Temperature: ");
-      stringBuilder.AppendLine(Temperature.ToString(CultureInfo.InvariantCulture));
+      stringBuilder.AppendLine(Temperature.ToString());
       stringBuilder.Append("-- Pressure: ");
       stringBuilder.AppendLine(Pressure.ToString(CultureInfo.InvariantCulture));
       stringBuilder.Append("-- Wind speed: ");

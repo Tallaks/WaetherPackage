@@ -11,21 +11,6 @@ namespace WeatherSystem.Extras.Services.OpenMeteo
     [JsonProperty("timezone_abbreviation")] public string TimezoneAbbreviation { get; set; }
     [JsonProperty("current_units")] public CurrentUnits CurrentUnits { get; set; }
     [JsonProperty("current")] public CurrentData Current { get; set; }
-
-    public WeatherInfo ToWeather()
-    {
-      return new WeatherInfo
-      {
-        Latitude = Latitude,
-        Longitude = Longitude,
-        Temperature = Current.Temperature2m,
-        Pressure = Current.PressureMsl,
-        WindSpeed = Current.WindSpeed10m,
-        WindDirection = Current.WindDirection10m,
-        Cloudiness = Current.CloudCover,
-        Description = string.Empty
-      };
-    }
   }
 
   [Serializable]

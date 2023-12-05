@@ -12,21 +12,6 @@ namespace WeatherSystem.Extras.Services.OpenWeather
     public Wind Wind { get; set; }
     public Clouds Clouds { get; set; }
     public int Dt { get; set; }
-
-    public WeatherInfo ToWeather()
-    {
-      return new WeatherInfo
-      {
-        Longitude = Coord.Lon,
-        Latitude = Coord.Lat,
-        Temperature = Main.Temp,
-        Pressure = Main.Pressure,
-        WindSpeed = Wind.Speed,
-        WindDirection = Wind.Deg,
-        Cloudiness = Clouds.All,
-        Description = Weather[0].Description
-      };
-    }
   }
 
   [Serializable]

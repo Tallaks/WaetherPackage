@@ -4,12 +4,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Unity.Plastic.Newtonsoft.Json;
-using UnityEngine;
 
 namespace WeatherSystem.Extras.Services.OpenMeteo
 {
   public class OpenMeteoService : IWeatherService
   {
+    private readonly OpenMeteoWeatherInfoFactory _factory = new();
+
     public async Task<WeatherInfo> GetWeatherInfo(double latitude, double longitude, float timeout,
       CancellationToken cancellationToken)
     {
@@ -23,10 +24,8 @@ namespace WeatherSystem.Extras.Services.OpenMeteo
           HttpResponseMessage response = await httpClient.GetAsync(url, cancellationToken);
           response.EnsureSuccessStatusCode();
           string result = await response.Content.ReadAsStringAsync();
-          Debug.Log(result);
           var weatherData = JsonConvert.DeserializeObject<OpenMeteoData>(result);
-          Debug.Log(weatherData);
-          return weatherData.ToWeather();
+          return _factory.Create(weatherData);
         }
         catch (Exception e)
         {
@@ -34,8 +33,6 @@ namespace WeatherSystem.Extras.Services.OpenMeteo
           throw;
         }
       }
-
-      return null;
     }
 
     private string GetUrl(double latitude, double longitude)

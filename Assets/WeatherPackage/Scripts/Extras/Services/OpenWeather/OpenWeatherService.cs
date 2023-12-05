@@ -11,6 +11,8 @@ namespace WeatherSystem.Extras.Services.OpenWeather
   {
     private const string ApiKey = "bdac50fa2e57d62e828edce565c66e81";
 
+    private readonly OpenWeatherWeatherInfoFactory _factory = new();
+
     public async Task<WeatherInfo> GetWeatherInfo(double latitude, double longitude, float timeout,
       CancellationToken cancellationToken)
     {
@@ -25,17 +27,7 @@ namespace WeatherSystem.Extras.Services.OpenWeather
           response.EnsureSuccessStatusCode();
           string result = await response.Content.ReadAsStringAsync();
           var weatherData = JsonConvert.DeserializeObject<OpenWeatherData>(result);
-          return weatherData.ToWeather();
-        }
-        catch (HttpRequestException httpRequestException)
-        {
-          Debug.LogError(httpRequestException.Message);
-          throw;
-        }
-        catch (TaskCanceledException taskCanceledException)
-        {
-          Debug.LogError(taskCanceledException.Message);
-          throw;
+          return _factory.Create(weatherData);
         }
         catch (Exception e)
         {

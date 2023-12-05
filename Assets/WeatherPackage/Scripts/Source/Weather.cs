@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -5,14 +6,12 @@ namespace WeatherSystem
 {
   public class Weather
   {
-    private readonly Dictionary<string, WeatherInfo> _weatherInfoByServiceType = new();
+    private readonly Dictionary<Type, WeatherInfo> _weatherInfoByServiceType = new();
     public static Weather Empty => new();
 
-    public WeatherInfo GetWeatherInfoFrom(string weatherServiceName)
+    public WeatherInfo GetWeatherInfoFrom<TWeaponService>() where TWeaponService : IWeatherService
     {
-      if (_weatherInfoByServiceType.TryGetValue(weatherServiceName, out WeatherInfo weatherInfo))
-        return weatherInfo;
-      return null;
+      return _weatherInfoByServiceType[typeof(TWeaponService)];
     }
 
     public override string ToString()
@@ -20,11 +19,11 @@ namespace WeatherSystem
       var stringBuilder = new StringBuilder();
       if (_weatherInfoByServiceType.Count == 0)
         return "Empty weather";
-      foreach (string serviceName in _weatherInfoByServiceType.Keys)
+      foreach (Type serviceType in _weatherInfoByServiceType.Keys)
       {
-        stringBuilder.Append(serviceName);
+        stringBuilder.Append(serviceType.Name);
         stringBuilder.AppendLine(":");
-        stringBuilder.Append(_weatherInfoByServiceType[serviceName]);
+        stringBuilder.Append(_weatherInfoByServiceType[serviceType]);
         stringBuilder.AppendLine();
       }
 
@@ -33,7 +32,7 @@ namespace WeatherSystem
 
     internal void AddWeatherInfo(IWeatherService service, WeatherInfo weatherInfo)
     {
-      _weatherInfoByServiceType.Add(service.GetType().Name, weatherInfo);
+      _weatherInfoByServiceType.Add(service.GetType(), weatherInfo);
     }
   }
 }
